@@ -1,0 +1,189 @@
+ * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0a0e1a;
+      perspective: 1000px;
+    }
+
+    .blockchain {
+      position: relative;
+      transform-style: preserve-3d;
+    }
+
+    .main-chain {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      background: #1a73e8;
+      transition: all 0.5s;
+      cursor: pointer;
+      box-shadow: 0 0 30px rgba(26, 115, 232, 0.3);
+      z-index: 2;
+    }
+
+    .main-chain::before {
+      content: 'Layer 1';
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+    
+.main-chain::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 60px;
+  background: linear-gradient(to bottom, 
+      rgba(255,255,255,0.3) 0%,
+      rgba(255,255,255,0) 100%);
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.sub-layer.middle::before { 
+content: '';
+position: absolute;
+top: 50%;
+left: 0; width: 100%;
+height: 2px;
+background: linear-gradient(to right, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+transform: translateY(-50%);
+z-index: 0;
+}
+
+.sub-layer.middle::after {
+content: '';
+position: absolute;
+top: 50%;
+right: 0;
+width: 100%;
+height: 2px;
+background: linear-gradient(to left, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+transform: translateY(-50%);
+z-index: 0;
+}
+
+.sub-layer::after{
+    display:none;
+}
+    .sub-layer {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background: #34a853;
+      top: 220px;
+      opacity: 0;
+      transition: all 0.5s ease;
+      box-shadow: 0 0 15px rgba(52, 168, 83, 0.3);
+    }
+
+    .sub-layer::before {
+      content: 'Layer 2';
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+    }
+
+    .sub-layer::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 60px;
+      background: linear-gradient(to top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Position sub-layers horizontally */
+    .sub-layer:nth-child(2) { left: -100px; }
+    .sub-layer:nth-child(3) { left: 60px; }
+    .sub-layer:nth-child(4) { left: 220px; }
+
+    .blockchain:hover .main-chain {
+      transform: translateZ(-50px);
+      filter: brightness(0.8);
+    }
+
+    .blockchain:hover .sub-layer {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+
+.main-to-middle-line {
+position: absolute;
+width: 2px;
+height: 20px;
+background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+top: 200px;
+left: 50%;
+transform: translateX(-50%);
+z-index: 1;
+}
+
+
+.main-to-middle-line,
+.sub-connection-line {
+opacity: 0;
+transition: opacity 0.5s ease;
+pointer-events: none;
+}
+
+.blockchain:hover .main-to-middle-line,
+.blockchain:hover .sub-connection-line {
+opacity: 1;
+}
+
+
+
+
+.sub-connection-line {
+position: absolute;
+top: 260px; /* Vertically between the sub-layers */
+left: -20px; /* Adjusted to start after the left sub-layer */
+width: 80px; /* Short enough to stay between the left and right sub-layers */
+height: 2px;
+background: linear-gradient(to right, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4));
+opacity: 0;
+transition: opacity 0.5s ease;
+z-index: 0;
+pointer-events: none;
+}
+
+.sub-connection-line-right {
+position: absolute;
+top: 260px; /* Same vertical alignment */
+left: 140px; /* Starts after the middle sub-layer */
+width: 80px; /* Short enough to stay between middle and right sub-layer */
+height: 2px;
+background: linear-gradient(to right, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4));
+opacity: 0;
+transition: opacity 0.5s ease;
+z-index: 0;
+pointer-events: none;
+}
+
+.blockchain:hover .sub-connection-line-right {
+opacity: 1;
+}
